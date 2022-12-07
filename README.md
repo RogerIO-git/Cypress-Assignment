@@ -1,5 +1,5 @@
 ### Cypress UI Automation Bootcamp
-Cypress project for QualityWorks UI Automation Bootcamp
+Cypress project for QualityWorks UI Automation Bootcamp Assignment
 
 ### Dependencies
 1. NodeJS v12, v14 or above
@@ -10,7 +10,7 @@ Cypress project for QualityWorks UI Automation Bootcamp
 Clone the repository & install dependencies
 ```sh
 $ git clone 
-$ cd cypress-ui-automation-bootcamp
+$ cd to project
 $ npm install
 ```
 # Folder Structure
@@ -39,10 +39,10 @@ Executes all tests in the Chrome browser and generates a Mochawesome report.
 
 Without Report
 
-```npx cypress run --spec cypress/e2e/test/InClassActivities/activity4.cy.js```
+```npx cypress run --spec cypress/e2e/test/```
 
 OR
 
 With Report
 
-```npm run test:spec cypress/e2e/test/InClassActivities/activity4.cy.js```
+```npm run test:spec cypress/e2e/test/```

@@ -1,32 +1,51 @@
-/// <reference types="cypress" />
 import Auth from '../../page/auth.page'
+import Product from '../../page/product.page'
+import productData from '../../data/products.data'
+import userData from '../../data/users.data'
 
 describe('Filter', () => {
     beforeEach(() => {
         cy.visit('/')
+        Auth.login(userData.valid.username,userData.valid.password)
       })
 
     it('should sort product list from A-Z', () => {
-        Auth.login('standard_user','secret_sauce')
-        cy.get('.product_sort_container').select('az')
+        Product.selectFilter(productData.filter['A to Z'])
 
-        var productList = ['Sauce Labs Backpack', 'Sauce Labs Bike Light', 'Sauce Labs Bolt T-Shirt', 'Sauce Labs Fleece Jacket', 'Sauce Labs Onesie', 'Test.allTheThings() T-Shirt (Red)']
-        productList.sort()
+        productData.products.sort()
 
-        cy.get('.inventory_item_name').each(($elem, index) => {
-            expect($elem.text()).equal(productList[index])
+        cy.get(Product.itemsName).each(($elem, index) => {
+            expect($elem.text()).equal(productData.products[index].name)
         })
     })
 
     it('should sort product list from Z-A', () => {
-        Auth.login('standard_user','secret_sauce')
-        cy.get('.product_sort_container').select('za')
+        Product.selectFilter(productData.filter['Z to A'])
 
-        var productList = ['Sauce Labs Backpack', 'Sauce Labs Bike Light', 'Sauce Labs Bolt T-Shirt', 'Sauce Labs Fleece Jacket', 'Sauce Labs Onesie', 'Test.allTheThings() T-Shirt (Red)']
-        productList.sort().reverse()
+        productData.products.sort().reverse()
 
-        cy.get('.inventory_item_name').each(($elem, index) => {
-            expect($elem.text()).equal(productList[index])
+        cy.get(Product.itemsName).each(($elem, index) => {
+            expect($elem.text()).equal(productData.products[index].name)
+        })
+    })
+
+    it('should sort product list from low to high', () => {
+        Product.selectFilter(productData.filter['Low to High'])
+
+        productData.products.sort((a, b) => a.price - b.price)
+
+        cy.get(Product.itemsPrice).each(($elem, index) => {
+            expect($elem.text()).equal(`$${productData.products[index].price}`)
+        })
+    })
+
+    it('should sort product list from high to low', () => {
+        Product.selectFilter(productData.filter['High to Low'])
+
+        productData.products.sort((a, b) => b.price - a.price)
+
+        cy.get(Product.itemsPrice).each(($elem, index) => {
+            expect($elem.text()).equal(`$${productData.products[index].price}`)
         })
     })
 })
