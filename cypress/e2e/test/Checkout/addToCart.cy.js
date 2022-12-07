@@ -37,7 +37,7 @@ describe('Checkout', () => {
             cy.get(Cart.removedCartItem).should('exist')
         })
 
-        it('Remove one item from product list', () => {
+        it('Remove one item on product list', () => {
             Auth.login(userData.valid.username,userData.valid.password)
 
             Cart.addToCart(productData.products[i].name)
